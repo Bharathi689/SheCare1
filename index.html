@@ -1,109 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> 
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Student Grievance Portal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Google Sign-In -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f6f9;
-            margin: 0;
-        }
-        header {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 15px;
-        }
-        .container {
-            width: 90%;
-            max-width: 600px;
-            margin: 30px auto;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        input, textarea, select, button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        button {
-            background: #3498db;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
-
-<header>
     <h1>Student Grievance Portal</h1>
-    <p>Raise your complaints online</p>
-</header>
 
-<div class="container">
-    <div class="card">
+    <form action="/submit" method="POST">
+        <input type="text" name="name" placeholder="Student Name" required><br><br>
 
-        <h2>Login with Gmail</h2>
+        <input type="text" name="hallticket" placeholder="Hall Ticket Number" required><br><br>
 
-        <!-- Google Sign-In Button -->
-        <div id="g_id_onload"
-             data-client_id="YOUR_GOOGLE_CLIENT_ID"
-             data-callback="handleCredentialResponse">
-        </div>
+        <select name="group" required>
+            <option value="">Select Group</option>
+            <option>BCA</option>
+            <option>BSc</option>
+            <option>BA</option>
+            <option>BCom</option>
+        </select><br><br>
 
-        <div class="g_id_signin" data-type="standard"></div>
+        <select name="year" required>
+            <option value="">Select Year</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+        </select><br><br>
 
-        <hr>
+        <textarea name="grievance" placeholder="Enter grievance" required></textarea><br><br>
 
-        <h2>Submit Complaint</h2>
+        <button type="submit">Submit</button>
+    </form>
 
-        <form id="complaintForm">
-            <input type="text" placeholder="Student Name" required>
-
-            <input type="text" placeholder="Hall Ticket Number" required>
-
-            <select required>
-                <option value="">Select Stream</option>
-                <option>BCA</option>
-                <option>BSc</option>
-                <option>BA</option>
-                <option>BCom</option>
-            </select>
-
-            <select required>
-                <option value="">Select Year</option>
-                <option>1st Year</option>
-                <option>2nd Year</option>
-                <option>3rd Year</option>
-            </select>
-
-            <textarea rows="4" placeholder="Enter your grievance" required></textarea>
-
-            <button type="submit">Submit Complaint</button>
-        </form>
-
-        <p id="loginStatus" style="color:green;"></p>
-
-    </div>
-</div>
-
-<script>
-function handleCredentialResponse(response) {
-    document.getElementById("loginStatus").innerText =
-        "Logged in successfully with Gmail!";
-}
-</script>
-
+    <h2>Complaints</h2>
+    <% complaints.forEach(function(c){ %>
+        <p>
+            <b><%= c.name %></b> 
+            (HT: <%= c.hallticket %>, 
+            Group: <%= c.group %>, 
+            Year: <%= c.year %>) :
+            <%= c.grievance %>
+        </p>
+    <% }) %>
 </body>
 </html>
