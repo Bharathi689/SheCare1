@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Grievance Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #5a67d8;
+        }
+        .complaint {
+            background: #f4f6f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .label {
+            font-weight: bold;
+            color: #444;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+        <h1>Student Grievance Portal</h1>
+
+        <form action="/submit" method="POST">
+            <input type="text" name="name" placeholder="Student Name" required>
+
+            <input type="text" name="hallticket" placeholder="Hall Ticket Number" required>
+
+            <select name="group" required>
+                <option value="">Select Group</option>
+                <option>BCA</option>
+                <option>BSc</option>
+                <option>BA</option>
+                <option>BCom</option>
+            </select>
+
+            <select name="year" required>
+                <option value="">Select Year</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+            </select>
+
+            <textarea name="grievance" rows="4" placeholder="Enter grievance" required></textarea>
+
+            <button type="submit">Submit Complaint</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Submitted Complaints</h2>
+
+        <% if (complaints.length === 0) { %>
+            <p style="text-align:center;">No complaints submitted yet.</p>
+        <% } %>
+
+        <% complaints.forEach(function(c){ %>
+            <div class="complaint">
+                <p><span class="label">Name:</span> <%= c.name %></p>
+                <p><span class="label">Hall Ticket:</span> <%= c.hallticket %></p>
+                <p><span class="label">Group:</span> <%= c.group %></p>
+                <p><span class="label">Year:</span> <%= c.year %></p>
+                <p><span class="label">Grievance:</span> <%= c.grievance %></p>
+            </div>
+        <% }) %>
+
+    </div>
+
+</div>
+
+</body>
+</html>
