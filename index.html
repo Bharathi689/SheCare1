@@ -5,6 +5,9 @@
     <title>Student Grievance Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <style>
         body {
             font-family: Arial;
@@ -28,7 +31,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        input, textarea, button {
+        input, textarea, select, button {
             width: 100%;
             padding: 10px;
             margin-top: 10px;
@@ -50,14 +53,57 @@
 
 <div class="container">
     <div class="card">
+
+        <h2>Login with Gmail</h2>
+
+        <!-- Google Sign-In Button -->
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID"
+             data-callback="handleCredentialResponse">
+        </div>
+
+        <div class="g_id_signin" data-type="standard"></div>
+
+        <hr>
+
         <h2>Submit Complaint</h2>
-        <form>
+
+        <form id="complaintForm">
             <input type="text" placeholder="Student Name" required>
+
+            <input type="text" placeholder="Hall Ticket Number" required>
+
+            <select required>
+                <option value="">Select Stream</option>
+                <option>BCA</option>
+                <option>BSc</option>
+                <option>BA</option>
+                <option>BCom</option>
+            </select>
+
+            <select required>
+                <option value="">Select Year</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+            </select>
+
             <textarea rows="4" placeholder="Enter your grievance" required></textarea>
+
             <button type="submit">Submit Complaint</button>
         </form>
+
+        <p id="loginStatus" style="color:green;"></p>
+
     </div>
 </div>
+
+<script>
+function handleCredentialResponse(response) {
+    document.getElementById("loginStatus").innerText =
+        "Logged in successfully with Gmail!";
+}
+</script>
 
 </body>
 </html>
